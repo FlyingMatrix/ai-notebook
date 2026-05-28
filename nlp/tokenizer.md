@@ -40,7 +40,7 @@ Let's look at how two complex words in our sentence get broken down:
 
 By the end of this step, our sentence looks like a puzzle broken into pieces:
 
-Plaintext
+
 
 ```
 ["un", "believ", "able", ",", "they", "are", "skate", "boarding", "!"]
