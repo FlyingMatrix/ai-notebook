@@ -1,4 +1,4 @@
-### 🎯 Tokenizer
+## 🎯 Tokenizer
 
 Imagine you are trying to teach a computer to understand this specific sentence:
 
@@ -8,21 +8,27 @@ A computer cannot read this text directly; it only understands numbers. A **toke
 
 Here is exactly how a modern AI tokenizer processes this sentence, step-by-step.  
 
-#### Step 1: Text Normalization (The Clean-Up)
+
+
+### 🧩 Step 1: Text Normalization (The Clean-Up)
 
 Before chopping up the text, the tokenizer standardizes it. It might convert everything to lowercase and remove unusual spacing.
 
 - **Input:** `"Unbelievable, they are skateboarding!"`
 
 - **Normalized Output:** `"unbelievable, they are skateboarding!"`
+  
+  
 
-#### Step 2: Pre-Tokenization (The First Split)
+### 🧩 Step 2: Pre-Tokenization (The First Split)
 
 Next, the tokenizer does a rough pass, usually splitting the sentence by spaces and punctuation marks.
 
 Our sentence gets chopped into an initial list like this: `["unbelievable", ",", "they", "are", "skateboarding", "!"]`
 
-#### Step 3: Subword Tokenization (The Deep Cut)
+
+
+### 🧩 Step 3: Subword Tokenization (The Deep Cut)
 
 This is where the magic happens. Modern AIs use **subword tokenization**. Instead of keeping massive, complex words whole, it breaks them down into smaller pieces (prefixes, roots, and suffixes) that it recognizes from its dictionary (vocabulary).
 
@@ -42,7 +48,9 @@ Plaintext
 
 > **Why do this?** If the AI has never seen the word "skateboarding" before, it won't crash. It already knows what "skate" and "boarding" mean separately, so it can piece together the definition!
 
-#### Step 4: Token-to-ID Mapping (The Math Conversion)
+
+
+### 🧩 Step 4: Token-to-ID Mapping (The Math Conversion)
 
 Finally, every tokenizer has a massive lookup dictionary containing tens of thousands of subwords, each assigned to a specific number. The tokenizer replaces the text pieces with their corresponding mathematical IDs.
 
@@ -54,7 +62,9 @@ Using a simplified example vocabulary, the raw sentence `"Unbelievable, they are
 
 When the AI wants to talk back to you, it simply runs this process in reverse—turning the numbers back into tokens, and stitching those tokens back into human-readable text.  
 
-#### Python code using a real AI tokenizer
+
+
+### 🧩 Python code using a real AI tokenizer
 
 We will use the `transformers` library by Hugging Face to load the exact tokenizer used by **BERT** (one of Google's famous AI models)
 
@@ -111,6 +121,8 @@ Step 2: Token IDs (The math the AI sees)
 Step 3: Actual Model Input (with special AI padding tokens)
 [101, 4895, 27317, 3085, 1010, 2027, 2026, 24083, 15003, 999, 102]
 ```
+
+**Detail Explanation:**
 
 1. **The `##` Symbols:** Notice how BERT turned `"Unbelievable"` into `['un', '##believ', '##able']`. The `##` is a special marker the tokenizer uses to say: *"This subword attaches directly to the piece before it without a space."*
 
