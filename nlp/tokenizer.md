@@ -8,8 +8,6 @@ A computer cannot read this text directly; it only understands numbers. A **toke
 
 Here is exactly how a modern AI tokenizer processes this sentence, step-by-step.  
 
-
-
 ### 🧩 Step 1: Text Normalization (The Clean-Up)
 
 Before chopping up the text, the tokenizer standardizes it. It might convert everything to lowercase and remove unusual spacing.
@@ -17,16 +15,12 @@ Before chopping up the text, the tokenizer standardizes it. It might convert eve
 - **Input:** `"Unbelievable, they are skateboarding!"`
 
 - **Normalized Output:** `"unbelievable, they are skateboarding!"`
-  
-  
 
 ### 🧩 Step 2: Pre-Tokenization (The First Split)
 
 Next, the tokenizer does a rough pass, usually splitting the sentence by spaces and punctuation marks.
 
 Our sentence gets chopped into an initial list like this: `["unbelievable", ",", "they", "are", "skateboarding", "!"]`
-
-
 
 ### 🧩 Step 3: Subword Tokenization (The Deep Cut)
 
@@ -40,15 +34,11 @@ Let's look at how two complex words in our sentence get broken down:
 
 By the end of this step, our sentence looks like a puzzle broken into pieces:
 
-
-
 ```
 ["un", "believ", "able", ",", "they", "are", "skate", "boarding", "!"]
 ```
 
 > **Why do this?** If the AI has never seen the word "skateboarding" before, it won't crash. It already knows what "skate" and "boarding" mean separately, so it can piece together the definition!
-
-
 
 ### 🧩 Step 4: Token-to-ID Mapping (The Math Conversion)
 
@@ -61,8 +51,6 @@ Using a simplified example vocabulary, the raw sentence `"Unbelievable, they are
 ```
 
 When the AI wants to talk back to you, it simply runs this process in reverse—turning the numbers back into tokens, and stitching those tokens back into human-readable text.  
-
-
 
 ### 🧩 Python code using a real AI tokenizer
 
