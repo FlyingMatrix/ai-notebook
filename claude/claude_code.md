@@ -30,13 +30,13 @@
    
    ![](./img/installation_success.png)
 
-## 🧩 Permission Modes
+### 🧩 Permission Modes
 
 1. In Claude Code, you can easily cycle through the available permission modes to control how much oversight Claude has. Pressing **`Shift + Tab`** cycles your current session through these primary states:
    
    ![](./img/permission_modes.png)
 
-## 🧩 Claude Code Commands
+### 🧩 Claude Code Commands
 
 1. **`/tasks`** command is used to **list and manage background tasks** running during your development session.
 
