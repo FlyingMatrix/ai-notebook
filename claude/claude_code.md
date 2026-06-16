@@ -42,7 +42,7 @@
 
 2. **`/rewind`** command allows user to roll back mistakes instantly, which can also be triggered by tapping the **`Esc`** key **twice**.
 
-3. `/mcp` command is an interactive, in-session slash command used to view, manage, and troubleshoot the **Model Context Protocol (MCP)** servers.
+3. **`/mcp`** command is an interactive, in-session slash command used to view, manage, and troubleshoot the **Model Context Protocol (MCP)** servers.
    
    **For example**, run the following command in the terminal to add the **Figma MCP** to Claude Code:
    
