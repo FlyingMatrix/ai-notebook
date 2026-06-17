@@ -32,9 +32,43 @@
 
 ### 🧩 Permission Modes
 
-1. In Claude Code, you can easily cycle through the available permission modes to control how much oversight Claude has. Pressing **`Shift + Tab`** cycles your current session through these primary states:
+In Claude Code, you can easily cycle through the available permission modes to control how much oversight Claude has. 
+
+1. **`default` (Ask before edits):** * **What runs automatically:** Reads only. Any action that alters state prompts you first.
    
-   ![](./img/permission_modes.png)
+   - **Best used for:** Standard daily development and working in sensitive sections of a codebase.
+   
+   - **How to invoke:** Launched by default.
+
+2. **`acceptEdits` (Edit automatically):** * **What runs automatically:** Reads, local file edits, and basic filesystem commands (like `mkdir`, `mv`, `touch`, `cp`).
+   
+   - **Best used for:** High-velocity code iteration where you prefer reviewing changes via `git diff` instead of constant prompts.
+   
+   - **How to invoke:** Run `claude --permission-mode acceptEdits` or press `Shift+Tab`.
+
+3. **`plan` (Planning mode):** * **What runs automatically:** Reads only. Claude researches a task and drafts a blueprint without changing files.
+   
+   - **Best used for:** Exploring a legacy codebase or large architecture before authorizing any changes.
+   
+   - **How to invoke:** Prefix your prompt with `/plan` or press `Shift+Tab`.
+
+4. **`auto` (Classifier-driven):** * **What runs automatically:** Everything, but evaluated by an inline AI safety classifier.
+   
+   - **Best used for:** Long tasks; reducing "prompt fatigue" without turning off security entirely.
+   
+   - **How to invoke:** Run `claude --permission-mode auto`.
+
+5. **`dontAsk` (Strict scripts):** * **What runs automatically:** Only tools explicitly pre-approved in an allowlist. There is no prompt fallback.
+   
+   - **Best used for:** Running Claude Code inside automated CI/CD pipelines or automated shell scripts.
+   
+   - **How to invoke:** Set via `settings.json` or query arguments.
+
+6. **`bypassPermissions` (Dangerous):** * **What runs automatically:** Everything. It completely bypasses normal security prompts.
+   
+   - **Best used for:** Only safe to use inside heavily sandboxed environments, VMs, or local throwaway containers.
+   
+   - **How to invoke:** Run `claude --permission-mode bypassPermissions`.
 
 ### 🧩 Claude Code Commands
 
@@ -66,7 +100,7 @@
 
 10. **`/hooks`** command is used to configure and manage automated triggers that fire at specific points in the agentic workflow.
     
-    **For example**: 
+    🧪 **For example**: 
     
     - input **`/hooks`**, then select **PostToolUse - After tool execution**.
     
@@ -79,16 +113,36 @@
          # use "jq" command to get the file path, then pass to the prettier to format the file      
       ```
       
-       The hook can be saved in the following levels:
+       The hook can be saved in following levels:
       
-      ![](./img/hook_saving.png)
+      ```powershell
+      1. Porject settings (local)  Saved in .claude/settings.local.json
+      2. Project settings          Checked in at .claude/settings.json
+      3. User settings             Saved in at ~/.claude/settings.json
+      ```
 
 11. **`/<skill_name> [arguments]`** is how you manually invoke a **Custom Skill** or a **Bundled Skill** that has been taught to Claude.
 
 12. **`/agents`** command (or running `claude agents` directly from the standard terminal shell) opens the management dashboard for **AI subagents and multi-agent orchestrations**.
     
-    **`Agent Skill`** **vs** **`SubAgent`**
+    💡 **`Agent Skill`** **vs** **`SubAgent`**
     
-    ![](./img/agent_skill_vs_subagent.png)
+    The core difference comes down to **Instruction vs. Delegation**: an **Agent Skill** teaches the main Claude session *how* to do a specific task, while a **SubAgent** is a *separate worker* Claude spawns to do the job somewhere else.
+    
+    An Agent Skill is a structured prompt package (usually a `.md` file, like `SKILL.md`) that adds specialized knowledge, reference material, code templates, or custom hooks to your **main Claude session**.
+    
+    A SubAgent is a separate, isolated AI instance that your main Claude Code session can spawn to execute a tightly scoped task.
+    
+    📝 **Comparison Table**
+    
+    | **Feature**         | **Agent Skill**                                      | **SubAgent**                                      |
+    | ------------------- | ---------------------------------------------------- | ------------------------------------------------- |
+    | **What is it?**     | An extension of the main agent's knowledge/rules.    | A separate AI worker spawned by the main agent.   |
+    | **Context Window**  | Shared with your main conversation.                  | Completely isolated; discarded upon completion.   |
+    | **Execution**       | Inline (Sequential with your chat).                  | Can run in parallel alongside other subagents.    |
+    | **Primary Benefit** | Keeps code quality and style consistent.             | Saves token budget and prevents context bloat.    |
+    | **How to invoke**   | Automatically via prompt match or via `/skill-name`. | Automatically delegated or managed via `/agents`. |
 
 13. **`/plugin`** command opens the built-in, interactive **Plugin Manager**.
+
+14. **`/usage`** command is used to monitor the current token consumption, project statistics, and financial spend during an active coding session.
