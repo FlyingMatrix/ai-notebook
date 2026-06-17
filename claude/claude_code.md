@@ -104,7 +104,7 @@ In Claude Code, you can easily cycle through the available permission modes to c
     
     - input **`/hooks`**, then select **PostToolUse - After tool execution**.
     
-    - **Add new matcher** -> **Tool matcher: Write|Edit**.
+    - **Add new matcher** -> **Tool matcher: Write | Edit**.
     
     - **Add new hook** -> input command as below:
       
